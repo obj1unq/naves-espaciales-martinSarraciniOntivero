@@ -3,12 +3,14 @@ class Nave{
 	method recibirAmenaza(){
 		
 	}
-	method propulsar(){ //2 do: cambiar usando min()
-		if(not (velocidad + 20000> 300000)){
-		velocidad += 20000
+	method propulsar(velkmseg){ //2 do: cambiar usando min()
+		if(not (velocidad + velkmseg> 300000)){
+		velocidad += velkmseg
 		}else{
 			velocidad += (300000-velocidad)
 		}
+	}
+	method prepararParaViajar(){
 	}
 
 }
@@ -35,7 +37,11 @@ class NaveCargaRadiactiva inherits NaveDeCarga {
 	method sellarAlVacio(){
 		sellado = true
 	}
-	
+	override method prepararParaViajar(){
+		self.propulsar(15000)
+		self.sellarAlVacio()
+	}
+
 }
 
 class NaveDePasajeros inherits Nave{
@@ -51,6 +57,9 @@ class NaveDePasajeros inherits Nave{
 
 	override method recibirAmenaza() {
 		alarma = true
+	}
+	override method prepararParaViajar(){
+		self.propulsar(15000)
 	}
 
 }
@@ -71,9 +80,18 @@ class NaveDeCombate inherits Nave{
 	override method recibirAmenaza() {
 		modo.recibirAmenaza(self)
 	}
+	override method prepararParaViajar(){
+		self.propulsar(15000)
+		modo.mensaje(self)
+	}
 
 }
 
+object viajar{
+	method viaje(modoNave){
+		modoNave.mensaje(self)
+	}
+}
 object reposo {
 
 	method invisible() = false
@@ -81,6 +99,11 @@ object reposo {
 	method recibirAmenaza(nave) {
 		nave.emitirMensaje("¡RETIRADA!")
 	}
+	method mensaje(nave){
+		nave.emitirMensaje("saliendo en mision")
+		nave.modo(ataque)
+	}
+
 
 }
 
@@ -90,6 +113,9 @@ object ataque {
 
 	method recibirAmenaza(nave) {
 		nave.emitirMensaje("Enemigo encontrado")
+	}
+	method mensaje(nave){
+		nave.emitirMensaje("volviendo a la base")
 	}
 
 }
