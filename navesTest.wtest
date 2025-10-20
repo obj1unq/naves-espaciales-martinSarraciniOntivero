@@ -3,7 +3,7 @@ import naves.*
 describe "Nave de carga" {
 
 	const naveVacia = new NaveDeCarga()
-	const naveLlena = new NaveDeCarga(carga = 500000, velocidad = 290000)
+	const naveLlena = new NaveDeCarga(carga = 500000, velocidad = 270000)
 
 	test "sobrecargada" {
 		assert.that(naveLlena.sobrecargada())
@@ -25,6 +25,11 @@ describe "Nave de carga" {
 		naveLlena.recibirAmenaza()
 		assert.equals(0, naveVacia.carga())
 	}
+	test "propulsar Nave"{
+		naveVacia.propulsar()
+		assert.equals(20.000, naveVacia.velocidad())
+	}
+
 
 }
 
@@ -52,6 +57,10 @@ describe "Nave de pasajeros" {
 	test "recibir amenaza" {
 		naveSinPasajeros.recibirAmenaza()
 		assert.that(naveSinPasajeros.alarma())
+	}
+		test " llegar a limite de velocidad"{
+		naveConPasajeros.propulsar()
+		assert.equals(300000, naveConPasajeros.velocidad())
 	}
 
 }
@@ -84,3 +93,13 @@ describe "Nave de combate" {
 		assert.equals("Enemigo encontrado", naveEnAtaque.ultimoMensaje())
 	}
 }
+
+describe " Nave De Carga Radioactiva" {
+	const naveCargadaYSellada = new NaveCargaRadiactiva(velocidad = 10000, carga= 5000, sellado= true)
+  test "recibir amenaza" {
+	naveCargadaYSellada.recibirAmenaza()
+	assert.equals(0, naveCargadaYSellada.velocidad())
+	assert.equals(5000, naveCargadaYSellada.carga())
+  }
+}
+
