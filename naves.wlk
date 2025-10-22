@@ -3,14 +3,21 @@ class Nave{
 	method recibirAmenaza(){
 		
 	}
-	method propulsar(velkmseg){ //2 do: cambiar usando min()
+	/*method propulsar(velkmseg){ //2 do: cambiar usando min()
 		if(not (velocidad + velkmseg> 300000)){
 		velocidad += velkmseg
 		}else{
 			velocidad += (300000-velocidad)
 		}
+	}*/
+	method propulsar(velkmseg){
+		velocidad = 300000.min(velocidad + velkmseg)
 	}
 	method prepararParaViajar(){
+	}
+	method encontrarseConEnemigo(){
+		self.propulsar(20000)
+		self.recibirAmenaza()
 	}
 
 }
